@@ -58,9 +58,15 @@
     color: var(--primary-text-color);
     font-family: "Funnel Display", sans-serif;
     font-size: 18px;
+    min-height: 100vh;
+    min-width: 600px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
   header {
+    flex: 0;
     background-color: var(--secondary-background-color);
     color: var(--secondary-text-color);
     display: grid;
@@ -94,3 +100,35 @@
       }
     }
   }
+  
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.board {
+  width: clamp(500px, 50vh, 1000px);
+  height: clamp(500px, 50vh, 1000px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  padding: 1rem;
+  gap: 1rem;
+}
+.cell {
+  text-transform: uppercase;
+  background-color: var(--primary-text-color);
+  color: var(--primary-background-color);
+  font-size: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.players-container {
+  display: flex;
+  justify-content: space-between;
+}
