@@ -17,15 +17,15 @@
             <img src="./images/tic-tac-toe.svg" alt="tic-tac-toe icon">
             <h1>Tic Tac Toe</h1>
         </div>
-        <button class="reset" type="button" id="reset-button">Reset</button>
+        <button id="reset" type="button" id="reset-button">Reset</button>
     </header>
     <main>
         <div class="player-info">
             <div class="players-container">
-                <p class="player-1-info">Player 1: X</p>
-                <p class="player-2-info">Player 2: O</p>
+                <p id="player-1">Player 1: X</p>
+                <p id="player-2">Player 2: O</p>
             </div>
-            <p class="current-player-info">Current Player: Player 1</p>
+            <p id="current-player-info">Current Player: Player 1</p>
         </div>
         <div class="board">
             <div class="cell" id="cell-0"></div>
@@ -39,5 +39,12 @@
             <div class="cell" id="cell-8"></div>
         </div>
     </main>
+    <dialog id="modal" open>
+        <div class="game-alert">
+            <h2 id="alert-title">Game Finished</h2>
+            <p id="alert-message"></p>
+            <button id="close-btn" type="button">Close</button>
+        </div>
+    </dialog>
 </body>
 </html>

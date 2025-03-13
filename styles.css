@@ -87,7 +87,7 @@
       }
 
     }
-    .reset {
+    #reset {
       text-transform: uppercase;
       outline: none;
       background-color: var(--secondary-background-color);
@@ -126,9 +126,31 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover{
+    background-color: var(--secondary-background-color);
+    color: var(--secondary-text-color);
+  }
 }
 
 .players-container {
   display: flex;
   justify-content: space-between;
+}
+
+#modal {
+  background-color: var(--primary-background-color);
+  color: var(--primary-text-color);
+  border-radius: 8px;
+  padding: 1rem;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+.game-alert {
+  display: flex;
+  flex-direction: column;
 }

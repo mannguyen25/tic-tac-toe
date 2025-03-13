@@ -1,5 +1,5 @@
-const Board = (() => {
-    const cells = [...document.getElementsByClassName("cell")];
+const cells = [...document.getElementsByClassName("cell")];
+const Board = () => {
     const isBoardFull = () => {
         return cells.every(cell => cell.textContent!== "");
     }
@@ -31,6 +31,57 @@ const Board = (() => {
         }
         return false;
     }
-    return {isBoardFull, hasWinner, placeMarker}
+    const clearBoard = () => {
+        cells.forEach(cell => cell.textContent = "");
+    }
+    return {isBoardFull, hasWinner, placeMarker, clearBoard}
+};
+
+const Player = (name, symbol) => {
+    return {name, symbol}
+};
+
+const Game = (player1, player2, board) =>{
+    const players = [player1, player2]
+    let activePlayer = players[Math.floor(Math.random() * 2)]
+    const resetbtn = document.getElementById("reset");
+    const modal = document.getElementById("modal");
+    const closeBtn = document.getElementById("close-btn");
+    closeBtn.addEventListener('click', () => {
+        modal.close();
+    });
+    const switchPlayer = () => {
+        // switch player
+        activePlayer = players[(players.indexOf(activePlayer) + 1) % 2]
+        document.getElementById("current-player-info").textContent = `Current Player: ${activePlayer.name}`;
+    }
+    cells.forEach((cell) => {
+        cell.addEventListener("click", (event) => {
+        board.placeMarker(event.target.id.split("-")[1], activePlayer.symbol);
+        if (board.hasWinner()) {
+            modal.children[0].children[1].textContent = `Winner: ${activePlayer.name}`;
+            modal.showModal();
+        }
+        else if (board.isBoardFull()) {
+            modal.children[0].children[1].textContent = "It's a draw!";
+            modal.showModal();
+        }
+        switchPlayer();
+        });
+    });
+    const resetGame = () => {
+        activePlayer = players[Math.floor(Math.random() * 2)];
+        document.getElementById("current-player-info").textContent = `Current Player: ${activePlayer.name}`;
+        board.clearBoard();
+    }
+    resetbtn.addEventListener("click", resetGame);
+}
+
+const TicTacToe = (()=> {
+    const player1 = Player("Player 1","X");
+    document.getElementById("player-1").textContent = player1.name;
+    const player2 = Player("Player 2","O");
+    document.getElementById("player-2").textContent = player2.name;
+    const board = Board();
+    const game = Game(player1, player2, board);
 })();
-console.log(Board.hasWinner());
