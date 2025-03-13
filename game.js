@@ -44,6 +44,10 @@ const Player = (name, symbol) => {
 const Game = (player1, player2, board) =>{
     const players = [player1, player2]
     let activePlayer = players[Math.floor(Math.random() * 2)]
+    const setActivePlayer = () => {
+        document.getElementById("current-player-info").textContent = `Current Player: ${activePlayer.name}`;
+    };
+    setActivePlayer();
     const resetbtn = document.getElementById("reset");
     const modal = document.getElementById("modal");
     const closeBtn = document.getElementById("close-btn");
@@ -53,20 +57,21 @@ const Game = (player1, player2, board) =>{
     const switchPlayer = () => {
         // switch player
         activePlayer = players[(players.indexOf(activePlayer) + 1) % 2]
-        document.getElementById("current-player-info").textContent = `Current Player: ${activePlayer.name}`;
+        setActivePlayer();
     }
     cells.forEach((cell) => {
         cell.addEventListener("click", (event) => {
-        board.placeMarker(event.target.id.split("-")[1], activePlayer.symbol);
-        if (board.hasWinner()) {
-            modal.children[0].children[1].textContent = `Winner: ${activePlayer.name}`;
-            modal.showModal();
-        }
-        else if (board.isBoardFull()) {
-            modal.children[0].children[1].textContent = "It's a draw!";
-            modal.showModal();
-        }
-        switchPlayer();
+        if (board.placeMarker(event.target.id.split("-")[1], activePlayer.symbol)) {
+            if (board.hasWinner()) {
+                modal.children[0].children[1].textContent = `Winner: ${activePlayer.name}`;
+                modal.showModal();
+            }
+            else if (board.isBoardFull()) {
+                modal.children[0].children[1].textContent = "It's a draw!";
+                modal.showModal();
+            }
+            switchPlayer();
+        };
         });
     });
     const resetGame = () => {
@@ -79,9 +84,7 @@ const Game = (player1, player2, board) =>{
 
 const TicTacToe = (()=> {
     const player1 = Player("Player 1","X");
-    document.getElementById("player-1").textContent = player1.name;
     const player2 = Player("Player 2","O");
-    document.getElementById("player-2").textContent = player2.name;
     const board = Board();
     const game = Game(player1, player2, board);
 })();
